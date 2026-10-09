@@ -36,7 +36,7 @@ def load_config(file_path, cfg=dict()):
             if base_yaml.startswith('~'):
                 base_yaml = os.path.expanduser(base_yaml)
 
-            if not base_yaml.startswith('/'):
+            if not os.path.isabs(base_yaml):
                 base_yaml = os.path.join(os.path.dirname(file_path), base_yaml)
 
             with open(base_yaml) as f:

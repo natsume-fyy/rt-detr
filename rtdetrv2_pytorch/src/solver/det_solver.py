@@ -11,6 +11,7 @@ from ..misc import dist_utils, profiler_utils
 
 from ._solver import BaseSolver
 from .det_engine import train_one_epoch, evaluate
+from .size_metrics import report_size_metrics
 
 
 class DetSolver(BaseSolver):
@@ -73,6 +74,9 @@ class DetSolver(BaseSolver):
                 self.device
             )
 
+            if dist_utils.is_main_process():
+                report_size_metrics(test_stats, self.output_dir, epoch=epoch)
+
             # TODO 
             for k in test_stats:
                 if self.writer and dist_utils.is_main_process():
@@ -124,6 +128,9 @@ class DetSolver(BaseSolver):
         module = self.ema.module if self.ema else self.model
         test_stats, coco_evaluator = evaluate(module, self.criterion, self.postprocessor,
                 self.val_dataloader, self.evaluator, self.device)
+
+        if dist_utils.is_main_process():
+            report_size_metrics(test_stats, self.output_dir)
                 
         if self.output_dir:
             dist_utils.save_on_master(coco_evaluator.coco_eval["bbox"].eval, self.output_dir / "eval.pth")

@@ -1,4 +1,6 @@
 
+HazyDet: [中文训练与评估指南](README_HazyDet_cn.md) · Training entry: `train_hazydet.py`
+
 ## Quick start
 
 <details >

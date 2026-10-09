@@ -1,0 +1,12 @@
+__include__: ['rtdetrv2_r18vd_120e_coco.yml']
+num_classes: 3
+remap_mscoco_category: False
+output_dir: ./output/hazydet_rtdetrv2_s
+PResNet:
+  pretrained: False
+train_dataloader:
+  total_batch_size: 4
+  num_workers: 0
+val_dataloader:
+  total_batch_size: 4
+  num_workers: 0

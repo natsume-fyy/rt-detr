@@ -1,0 +1,23 @@
+__include__: ['rtdetrv2_r50vd_6x_coco.yml']
+
+num_classes: 3
+remap_mscoco_category: False
+output_dir: ./output/rtdetrv2_r50vd_6x_hazydet
+
+# Load a full RT-DETRv2-L COCO checkpoint with --tuning.
+PResNet:
+  pretrained: False
+
+train_dataloader:
+  total_batch_size: 4
+  num_workers: 0
+  dataset:
+    img_folder: ./dataset/HazyDet/train/hazy_images
+    ann_file: ./dataset/hazydet_rtdetrv2/train.json
+
+val_dataloader:
+  total_batch_size: 4
+  num_workers: 0
+  dataset:
+    img_folder: ./dataset/HazyDet/val/hazy_images
+    ann_file: ./dataset/hazydet_rtdetrv2/val.json
